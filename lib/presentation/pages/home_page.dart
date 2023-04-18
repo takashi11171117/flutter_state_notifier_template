@@ -8,7 +8,6 @@ class HomePage extends StatelessWidget {
   const HomePage._({Key? key}) : super(key: key);
 
   /// 各ページ用のViewModelをここで注入
-  /// wrappedを作るのは、multiProviderを挟むので引数のバケツリレーを防ぐため
   static Widget wrapped() {
     return MultiProvider(
       providers: [
