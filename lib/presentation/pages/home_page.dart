@@ -7,6 +7,8 @@ import 'package:flutter_state_notifier_template/presentation/pages/home_page_mod
 class HomePage extends StatelessWidget {
   const HomePage._({Key? key}) : super(key: key);
 
+  /// 各ページ用のViewModelをここで注入
+  /// wrappedを作るのは、multiProviderを挟むので引数のバケツリレーを防ぐため
   static Widget wrapped() {
     return MultiProvider(
       providers: [
@@ -33,11 +35,23 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const CounterText(),
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () {
-                context.read<HomeModel>().increment();
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    /// context.readは、初回のみ取得する
+                    context.read<HomeModel>().increment();
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: () {
+                    context.read<HomeModel>().decrement();
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -46,6 +60,9 @@ class HomePage extends StatelessWidget {
   }
 }
 
+/// Widgetを区切って、context.selectでStateの値を読むと、このWidgetはその値が変更された時のみリビルドされる
+/// context.read, context.watch, context.selectの違い
+/// https://dev.classmethod.jp/articles/flutter-compare-3-ways-to-read-contexts-with-providers/
 class CounterText extends StatelessWidget {
   const CounterText({Key? key}) : super(key: key);
 

@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:state_notifier/state_notifier.dart';
+
+import 'package:flutter_state_notifier_template/repository/shared_preference_repository.dart';
 
 part 'counter_usecase.freezed.dart';
 
@@ -12,13 +16,39 @@ abstract class CounterState with _$CounterState {
 }
 
 class CounterUsecase extends StateNotifier<CounterState> with LocatorMixin {
-  CounterUsecase(): super(const CounterState());
+  CounterUsecase() : super(const CounterState());
 
-  void increment() {
-    state = state.copyWith(count: state.count + 1);
+  /// MultiProviderで親コンポーネントから注入しているので、暗黙的に取得できる
+  SharedPreferencesRepository get _sharedPreferencesRepository =>
+      read<SharedPreferencesRepository>();
+
+  @override
+  void initState() {
+    _configure();
+    super.initState();
   }
 
-  void disableCounter() {
-    state = state.copyWith(isEnabled: false);
+  Future<void> _configure() async {
+    try {
+      final counter = await _sharedPreferencesRepository.load<int>(
+        SharedPreferencesKey.counter,
+      );
+
+      if (counter != null) state = state.copyWith(count: counter);
+    } on Exception catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> increment() async {
+    state = state.copyWith(count: state.count + 1);
+    await _sharedPreferencesRepository.save<int>(
+        SharedPreferencesKey.counter, state.count);
+  }
+
+  Future<void> decrement() async {
+    state = state.copyWith(count: max(state.count - 1, 0));
+    await _sharedPreferencesRepository.save<int>(
+        SharedPreferencesKey.counter, state.count);
   }
 }

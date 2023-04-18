@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:flutter_state_notifier_template/usecase/counter_usecase.dart';
@@ -16,13 +15,14 @@ abstract class HomeModelState with _$HomeModelState {
 class HomeModel extends StateNotifier<HomeModelState> with LocatorMixin {
   HomeModel(): super(const HomeModelState());
 
+  /// MultiProviderで親コンポーネントから注入しているので、暗黙的に取得できる
   CounterUsecase get _counterUsecase => read<CounterUsecase>();
 
   void increment() {
     _counterUsecase.increment();
   }
 
-  void disableCounter() {
-    _counterUsecase.disableCounter();
+  void decrement() {
+    _counterUsecase.decrement();
   }
 }
