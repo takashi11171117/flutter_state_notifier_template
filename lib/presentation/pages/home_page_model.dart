@@ -15,7 +15,7 @@ abstract class HomeModelState with _$HomeModelState {
 class HomeModel extends StateNotifier<HomeModelState> with LocatorMixin {
   HomeModel(): super(const HomeModelState());
 
-  /// MultiProviderで親コンポーネントから注入しているので、暗黙的に取得できる
+  /// MultiProviderで親コンポーネントから注入していて、LocatorMixinをしようしているので暗黙的に取得できる
   CounterUsecase get _counterUsecase => read<CounterUsecase>();
 
   void increment() {

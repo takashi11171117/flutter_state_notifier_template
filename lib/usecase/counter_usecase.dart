@@ -18,7 +18,7 @@ abstract class CounterState with _$CounterState {
 class CounterUsecase extends StateNotifier<CounterState> with LocatorMixin {
   CounterUsecase() : super(const CounterState());
 
-  /// MultiProviderで親コンポーネントから注入しているので、暗黙的に取得できる
+  /// MultiProviderで親コンポーネントから注入していて、LocatorMixinをしようしているので暗黙的に取得できる
   SharedPreferencesRepository get _sharedPreferencesRepository =>
       read<SharedPreferencesRepository>();
 
