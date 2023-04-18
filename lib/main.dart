@@ -1,67 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_state_notifier_template/presentation/app.dart';
+import 'package:flutter_state_notifier_template/usecase/counter_usecase.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<List<SingleChildWidget>> providers() async {
+  return <SingleChildWidget>[
+    Provider(create: (context) => GlobalKey<NavigatorState>()),
+    ..._repositoryProviders(),
+    ...await _usecaseProviders,
+  ];
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+Future<List<SingleChildWidget>> get _usecaseProviders async {
+  return <SingleChildWidget>[
+    StateNotifierProvider<CounterUsecase, CounterState>(
+      create: (_) => CounterUsecase(),
+    ),
+  ];
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+List<SingleChildWidget> _repositoryProviders() {
+  return <SingleChildWidget>[];
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
+void main() async {
+  runApp(
+    MultiProvider(
+      providers: await providers(),
+      child: const App(),
+    ),
+  );
 }
