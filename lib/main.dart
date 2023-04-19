@@ -9,7 +9,6 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
 Future<List<SingleChildWidget>> providers() async {
   return <SingleChildWidget>[
-    Provider(create: (context) => GlobalKey<NavigatorState>()),
     ..._repositoryProviders(),
     ...await _usecaseProviders,
   ];
