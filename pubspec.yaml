@@ -17,6 +17,7 @@ dependencies:
   flutter_state_notifier: ^0.7.3
   freezed_annotation: ^1.1.0
   shared_preferences: ^2.0.6
+  mockito: ^5.2.0
 
 dev_dependencies:
   flutter_test:

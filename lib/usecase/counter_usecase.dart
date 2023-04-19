@@ -8,7 +8,7 @@ import 'package:flutter_state_notifier_template/repository/shared_preference_rep
 part 'counter_usecase.freezed.dart';
 
 @freezed
-abstract class CounterState with _$CounterState {
+class CounterState with _$CounterState {
   const factory CounterState({
     @Default(0) int count,
     @Default(true) bool isEnabled,

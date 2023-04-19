@@ -5,7 +5,7 @@ import 'package:flutter_state_notifier_template/usecase/counter_usecase.dart';
 part 'home_page_model.freezed.dart';
 
 @freezed
-abstract class HomeModelState with _$HomeModelState {
+class HomeModelState with _$HomeModelState {
   const factory HomeModelState({
     @Default(0) int count,
     @Default(true) bool isEnabled,

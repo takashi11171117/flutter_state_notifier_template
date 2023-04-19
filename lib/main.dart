@@ -16,7 +16,7 @@ Future<List<SingleChildWidget>> providers() async {
 
 List<SingleChildWidget> _repositoryProviders() {
   return <SingleChildWidget>[
-    Provider<SharedPreferencesRepository>( /// ここのGenericsにabstractクラス入れるかは任意
+    Provider<SharedPreferencesRepository>(
       create: (_) => SharedPreferencesDataSource(),
     ),
   ];
