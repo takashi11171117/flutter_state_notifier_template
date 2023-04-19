@@ -6,6 +6,7 @@ import 'package:flutter_state_notifier_template/presentation/pages/home_page_mod
 
 class HomePage extends StatelessWidget {
   const HomePage._({Key? key}) : super(key: key);
+  const HomePage.test({Key? key}) : super(key: key);
 
   /// 各ページ用のViewModelをここで注入
   static Widget wrapped() {
