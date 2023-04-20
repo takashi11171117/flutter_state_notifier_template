@@ -26,6 +26,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner:
   freezed: ^1.1.1
+  cider: ^0.1.1
 
 flutter:
   uses-material-design: true
