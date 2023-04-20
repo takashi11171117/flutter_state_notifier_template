@@ -55,6 +55,7 @@ jobs:
         run: |
           git add -u pubspec.yaml
           echo "Bumped version number to $BUMP_VERSION" | git commit --file=-
+          git pull --rebase origin main
           git push
 
       - name: create tag and release note
