@@ -35,7 +35,7 @@ class CounterUsecase extends StateNotifier<CounterState> with LocatorMixin {
       );
 
       if (counter != null) state = state.copyWith(count: counter);
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       rethrow;
     }
   }

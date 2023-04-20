@@ -44,14 +44,10 @@ class TestHomeModel extends StateNotifier<HomeModelState>
   TestHomeModel() : super(const HomeModelState());
 
   @override
-  void increment() {
-    print('increment');
-  }
+  void increment() {}
 
   @override
-  void decrement() {
-    print('decrement');
-  }
+  void decrement() {}
 }
 
 class TestCounterUsecase extends StateNotifier<CounterState>
@@ -59,7 +55,9 @@ class TestCounterUsecase extends StateNotifier<CounterState>
     implements CounterUsecase {
   TestCounterUsecase() : super(const CounterState());
 
+  @override
   Future<void> increment() async {}
 
+  @override
   Future<void> decrement() async {}
 }
